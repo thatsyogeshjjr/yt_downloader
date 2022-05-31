@@ -1,7 +1,5 @@
 #!/usr/bin/env Python3
 
-# TODO: change 'audio only' downloads from mp4 to mp3
-
 from pytube import YouTube, Playlist
 from os.path import expanduser
 import os
