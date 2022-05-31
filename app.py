@@ -4,7 +4,7 @@
 
 from pytube import YouTube, Playlist
 from os.path import expanduser
-from moviepy.editor import *
+import os
 
 save_location = expanduser("~\Videos\Youtube Downloader")
 
@@ -19,7 +19,12 @@ def download_video(url, quality):
              video.streams.get_lowest_resolution().download(save_location)
         case 'a':
              save_location = expanduser("~\Music\Youtube Downloader")
-             video.streams.get_audio_only().download(save_location)
+             out_file = video.streams.get_audio_only().download(save_location)
+             if out_file:
+                base, ext = os.path.splitext(out_file)
+                print("hello")
+                new_file = base + ".mp3"
+                os.rename(out_file, new_file)
 
     print(f"[+] Downloaded {video.title}")
 
@@ -39,19 +44,28 @@ def download_playlist(url, quality):
                 YouTube(i).streams.get_lowest_resolution().download(save_location)
                 print(f"[+] Downloaded {YouTube(i).title}")
         case 'a':
+            save_location = expanduser(f"~\Music\Youtube Downloader")
             try:
                 save_location = expanduser(f"~\Music\Youtube Downloader\{playlist.title}")
                 for i in playlist.video_urls:
-                    YouTube(i).streams.get_audio_only().download(save_location)
+                    out_file = YouTube(i).streams.get_audio_only().download(save_location)
                     print(f"[+] Downloaded {YouTube(i).title}")
+
+                    if out_file:
+                        base, ext = os.path.splitext(out_file)
+                        new_file = base + ".mp3"
+                        os.rename(out_file, new_file)
             except:
                 folder_name = input("Enter folder name (no special characters): ")
                 save_location = expanduser(f"~\Music\Youtube Downloader\{folder_name}")
                 for i in playlist.video_urls:
-                    YouTube(i).streams.get_audio_only().download(save_location)
+                    out_file = YouTube(i).streams.get_audio_only().download(save_location)
                     print(f"[+] Downloaded {YouTube(i).title}")
 
-    print("Playlist has been downloaded")
+                    if out_file:
+                        base, ext = os.path.splitext(out_file)
+                        new_file = base + ".mp3"
+                        os.rename(out_file, new_file)
         
 
 
@@ -59,13 +73,15 @@ def main():
     url = input('Enter URL: ')
     quality = input("Video Quatlity: (b)est | (w)orst | (a)udio only | (e)xit: ")
     if 'e' in quality:
+        print("[+] Exiting Application.")
         quit()
     if 'playlist' in url:
         download_playlist(url, quality)
     elif 'watch' in url:
         download_video(url, quality)
     else:
-        print("[-] An Error Occured. Please check the url provided.\n\n")
+        print("[-] An Error Occured. Please check the url provided.\n")
+        quit()
     
     print(f"Download Complete\nLocation: {save_location}")
 
