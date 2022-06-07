@@ -1,0 +1,10 @@
+In pytube/cipher.py
+
+For ERR: pytube.exceptions.RegexMatchError: __init__: could not find match for ^\w+\W
+change line 30 to 
+var_regex = re.compile(r"^\$*\w+\W")
+
+For ERR: pytube.exceptions.RegexMatchError: get_throttling_function_name: could not find match for multiple
+change line 272~273 to
+        r'a\.[a-zA-Z]\s*&&\s*\([a-z]\s*=\s*a\.get\("n"\)\)\s*&&\s*'
+        r'\([a-z]\s*=\s*([a-zA-Z0-9$]{2,3})(\[\d+\])?\([a-z]\)'
