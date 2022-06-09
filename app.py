@@ -68,7 +68,14 @@ def download_playlist(url, quality):
 
 
 def main():
-    url = input('Enter URL: ')
+    try:
+        url = input('Enter URL: ')
+    except:
+        print("[-] An error occured with the url provided")
+    if url == '':
+        print("[-] No link provided.\n[-] Exiting Application")
+        quit()
+        
     quality = input("Video Quatlity: (b)est | (w)orst | (a)udio only | (e)xit: ")
     if 'e' in quality:
         print("[+] Exiting Application.")
@@ -84,6 +91,17 @@ def main():
     print(f"Download Complete\nLocation: {save_location}")
 
 
+def premain():
+    print("          __          __                    __                __         ")
+    print("   __  __/ /_    ____/ /___ _      ______  / /___  ____ _____/ /__  _____")
+    print("  / / / / __/   / __  / __ \ | /| / / __ \/ / __ \/ __ `/ __  / _ \/ ___/")
+    print(" / /_/ / /_    / /_/ / /_/ / |/ |/ / / / / / /_/ / /_/ / /_/ /  __/ /    ")
+    print(" \__, /\__/____\__,_/\____/|__/|__/_/ /_/_/\____/\__,_/\__,_/\___/_/     ")
+    print("/____/   /_____/                                                         \n\n")
+    print("\t\tDownload youtube playlists, audios, videos.\n")
+
+
 
 if __name__ == '__main__':
+    premain()
     main()
